@@ -1,0 +1,16 @@
+version: '2.0'
+services:
+  frontend:
+    image: tictactoefrontend
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    ports:
+      - 8081:80
+  backend:
+    image: tictactoebackend
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080

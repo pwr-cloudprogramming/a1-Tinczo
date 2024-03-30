@@ -1,10 +1,5 @@
-FROM busybox:1.35
+FROM nginx:alpine
 
-RUN adduser -D stud
-USER stud
-WORKDIR /home/stud
+COPY src/ /usr/share/nginx/html
 
-COPY src/ .
-
-ENTRYPOINT ["busybox"]
-CMD ["httpd", "-f", "-v", "-p", "3000"]
+CMD ["nginx", "-g", "daemon off;"]
