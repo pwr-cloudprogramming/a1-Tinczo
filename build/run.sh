@@ -10,7 +10,21 @@ IP_V4=$(curl -H "$TOKEN_HEADER" -s $METADATA_URL/public-ipv4)
 INTERFACE=$(curl -H "$TOKEN_HEADER" -s $METADATA_URL/network/interfaces/macs/ | head -n1)
 SUBNET_ID=$(curl -H "$TOKEN_HEADER" -s $METADATA_URL/network/interfaces/macs/${INTERFACE}/subnet-id)
 VPC_ID=$(curl -H "$TOKEN_HEADER" -s $METADATA_URL/network/interfaces/macs/${INTERFACE}/vpc-id)
-echo "const url = 'http://${IP_V4}:8080';" >> ~/a1-Tinczo/frontend/src/js/socket_js.js
+
+cd ..
+cd frontend/src/js
+
+file="socket_js.js"
+
+last_line=$(tail -n 1 $file)
+
+if [[ "$last_line" == *"const url"* ]]; then
+  sed -i '$ d' $file
+  echo "const url = 'http://${IP_V4}:8080';" >> $file
+fi
+
+cd ..
+cd ..
 
 echo "Your EC2 instance works in :AvailabilityZone: ${AZONE} / VPC: ${VPC_ID} / VPC subnet: ${SUBNET_ID} / IP address: ${IP_V4}"
 
@@ -35,4 +49,4 @@ cd frontend/
 sudo docker build -t tictactoefrontend:v1 -t tictactoefrontend:latest .
 
 cd ..
-sudo docker compose up -d
+sudo docker compose up

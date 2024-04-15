@@ -1,4 +1,3 @@
-// const url = 'http://ec2-54-160-91-206.compute-1.amazonaws.com:8080';
 let stompClient;
 let gameId;
 let playerType;
@@ -109,3 +108,4 @@ function connectToSpecificGame() {
 }
 
 
+const url = 'localhost:8080';
