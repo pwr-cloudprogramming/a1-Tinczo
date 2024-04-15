@@ -45,9 +45,15 @@ function displayResponse(data) {
             let id = i + "_" + j;
             $("#" + id).text(turns[i][j]);
         }
+
     }
+    console.log(data.winner)
     if (data.winner != null) {
-        alert("Winner is " + data.winner);
+        if(data.winner != "D"){
+            alert("Winner is " + data.winner);
+        } else {
+            alert("Draw");
+        }
     }
     gameOn = true;
 }
